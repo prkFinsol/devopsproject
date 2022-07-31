@@ -1,19 +1,31 @@
 pipeline {
     agent any
     tools{
-        maven 'M3'
+        maven 'Maven'
     }
     stages{
         stage('Build Maven'){
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/prkFinsol/devopsproject']]])
-                sh 'mvn clean install'
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/prkFinsol/devopsproject']]])
+                bat 'mvn clean install'
             }
         }
-        stage('Build docker image'){
+                stage('Build docker image'){
             steps{
                 script{
-                    sh 'docker build -t javatechie/devops-integration .'
+                    bat 'docker build -t ramkijava/devopsproj .'
+                }
+            }
+        }
+        
+             stage('Push image to Hub'){
+            steps{
+                script{
+                   withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
+                   bat 'docker login -u javatechie -p ${dockerhubpwd}'
+
+					}
+                   bat 'docker push ramkijava/devopsproj'
                 }
             }
         }
