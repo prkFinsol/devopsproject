@@ -17,12 +17,11 @@ pipeline {
                 }
             }
         }
-        
-             stage('Push image to Hub'){
+                stage('Push image to Hub'){
             steps{
                 script{
-                   withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
-                   bat 'docker login -u javatechie -p ${dockerhubpwd}'
+                   withCredentials([string(credentialsId: 'dockerhub1', variable: 'dockerhub1')])  {
+                   bat 'docker login -u prkfinsol -p ${dockerhub1}'
 
 					}
                    bat 'docker push ramkijava/devopsproj'
