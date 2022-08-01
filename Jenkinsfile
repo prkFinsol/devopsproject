@@ -10,8 +10,7 @@ pipeline {
                 bat 'mvn clean install'
             }
         }
-                stage('Build docker image')
-                {
+                stage('Build docker image'){
             steps{
                 script{
                     bat 'docker build -t devopsproj .'
