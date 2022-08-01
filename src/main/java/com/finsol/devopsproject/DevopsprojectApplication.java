@@ -13,7 +13,7 @@ public class DevopsprojectApplication {
 		SpringApplication.run(DevopsprojectApplication.class, args);
 	}
 	
-	@GetMapping("/messageonetwo")
+	@GetMapping("/message")
 	public String getMessage(){
 		return "Welcome To DevOps";
 	}
