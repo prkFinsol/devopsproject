@@ -13,18 +13,20 @@ pipeline {
                 stage('Build docker image'){
             steps{
                 script{
-                    bat 'docker build -t ramkijava/devopsproj .'
+                    bat 'docker build -t devopsproj .'
                 }
             }
         }
                 stage('Push image to Hub'){
             steps{
                 script{
-                   withCredentials([string(credentialsId: 'dockerhub1', variable: 'dockerhub1')])  {
-                   bat 'docker login -u prkfinsol -p ${dockerhub1}'
+                    bat 'docker logout'
+                   withCredentials([string(credentialsId: 'dockerhub1', variable: 'dockerhub1')]) {
+                   bat 'docker login -u prkfinsol -p Fin123!@#'
 
 					}
-                   bat 'docker push ramkijava/devopsproj'
+					 bat 'docker tag devopsproj prkfinsol/test:devopsproj'
+                   bat 'docker push prkfinsol/test:devopsproj'
                 }
             }
         }
